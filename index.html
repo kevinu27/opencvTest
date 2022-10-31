@@ -70,12 +70,7 @@ let width = 420;
 let height = 0;
 document.getElementById("stop").onclick = function() {stopCamera()};
 document.getElementById("start").onclick = function() {startCamera()};
-document.getElementById("prueba").onclick = function() {
-  console.log("prueba")
-  let mat = new cv.Mat(height, width, cv.CV_8U);
-  cv.cvtColor(src, mat, cv.COLOR_RGBA2GRAY);
-  return dstC1;
-  };
+document.getElementById("prueba").onclick = function() {prueba()};
 
 // whether streaming video from the camera.
 let streaming = false;
@@ -129,6 +124,13 @@ function passThrough(src) {
 }
 
 function gray(src) {
+  console.log("src", src)
+  cv.cvtColor(src, dstC1, cv.COLOR_RGBA2GRAY);
+  return dstC1;
+}
+function prueba(src) { 
+  console.log("src", src)
+  src = new cv.Mat(height, width, cv.CV_8UC4);
   cv.cvtColor(src, dstC1, cv.COLOR_RGBA2GRAY);
   return dstC1;
 }
@@ -144,6 +146,8 @@ function canny(src) {
   cv.Canny(dstC1, dstC1, controls.cannyThreshold1, controls.cannyThreshold2, controls.cannyApertureSize, controls.cannyL2Gradient);
   return dstC1;
 }
+
+
 
 function inRange(src) {
   let lowValue = controls.inRangeLow;
@@ -615,5 +619,6 @@ function opencvIsReady() {
   initUI();
   // startCamera();
 }
+
 
 </script>
